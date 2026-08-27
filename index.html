@@ -421,6 +421,30 @@
     margin-bottom:6px;
   }
 
+  /* ---------- Scroll cue ---------- */
+  .scroll-cue{
+    text-align:center;
+    padding:4px 0 30px;
+  }
+  .scroll-cue p{
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0 0 6px;
+  }
+  .scroll-cue-arrow{
+    display:inline-block;
+    color:var(--rust);
+    font-size:18px;
+    animation:scroll-bounce 1.8s ease-in-out infinite;
+  }
+  @keyframes scroll-bounce{
+    0%, 100% { transform:translateY(0); }
+    50% { transform:translateY(7px); }
+  }
+
   /* ---------- Gallery / carousels ---------- */
   .gallery{
     display:grid;
@@ -542,7 +566,7 @@
       <div class="brand">MODALISA</div>
       <p class="slogan-top">Estuvimos en tú lugar, sabemos lo que necesitás.</p>
     </div>
-    <div class="tag">Fábrica mayorista · Buenos Aires</div>
+    <div class="tag">Fábrica mayorista · Buenos Aires — Envíos a todo el país</div>
   </div>
 </header>
 
@@ -651,6 +675,11 @@
     </a>
   </div>
 </section>
+
+<div class="scroll-cue wrap">
+  <p>Seguí bajando para ver fotos de las prendas</p>
+  <span class="scroll-cue-arrow" aria-hidden="true">&#8595;</span>
+</div>
 
 <section class="gallery wrap">
     <div class="hero-carousel-col">
