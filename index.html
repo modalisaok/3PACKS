@@ -197,45 +197,52 @@
   /* Side tabs: fixed, always-visible shortcut to the photo gallery */
   .side-tab{
     position:fixed;
-    top:32%;
+    top:max(190px, 42%);
     transform:translateY(-50%);
     z-index:40;
     display:flex;
     align-items:center;
-    gap:6px;
+    gap:8px;
     background:var(--rust);
     color:#fff;
     text-decoration:none;
     font-family:"JetBrains Mono", ui-monospace, monospace;
-    font-size:11px;
-    font-weight:600;
+    font-size:13px;
+    font-weight:700;
     letter-spacing:0.08em;
     text-transform:uppercase;
-    padding:10px 8px;
+    padding:14px 10px;
     writing-mode:vertical-rl;
-    border-radius:0 10px 10px 0;
+    border-radius:0 12px 12px 0;
     box-shadow:0 4px 14px rgba(0,0,0,0.16);
-    transition:padding 0.15s ease;
+    transition:padding 0.15s ease, opacity 0.35s ease, transform 0.35s ease;
+    opacity:1;
   }
-  .side-tab:hover{ padding:10px 12px; }
+  .side-tab:hover{ padding:14px 14px; }
   .side-tab.side-tab-left{
     left:0;
-    border-radius:0 10px 10px 0;
+    border-radius:0 12px 12px 0;
   }
   .side-tab.side-tab-right{
     right:0;
     transform:translateY(-50%) rotate(180deg);
-    border-radius:0 10px 10px 0;
+    border-radius:0 12px 12px 0;
   }
+  .side-tab.side-tab-clicked{
+    opacity:0;
+    pointer-events:none;
+  }
+  .side-tab.side-tab-clicked.side-tab-left{ transform:translateY(-50%) translateX(-12px); }
+  .side-tab.side-tab-clicked.side-tab-right{ transform:translateY(-50%) rotate(180deg) translateX(-12px); }
   @media (max-width:680px){
-    .side-tab{ top:26%; }
+    .side-tab{ top:max(170px, 36%); }
   }
   .side-tab .side-tab-arrow{
     display:inline-block;
     animation:scroll-bounce 1.8s ease-in-out infinite;
   }
   @media (max-width:520px){
-    .side-tab{ font-size:10px; padding:8px 6px; }
+    .side-tab{ font-size:12px; padding:12px 8px; }
   }
 
   @media (max-width:680px){
@@ -597,6 +604,26 @@
     text-transform:uppercase;
     color:var(--ink-soft);
   }
+  .acc-sub{
+    margin:0 0 28px;
+  }
+  .acc-sub:last-child{ margin-bottom:0; }
+  .acc-sub-h{
+    font-family:"Fraunces", serif;
+    font-style:italic;
+    font-size:16px;
+    color:var(--ink);
+    margin:0 0 6px;
+  }
+  .acc-sub-h .acc-sub-talles{
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    font-style:normal;
+    font-size:12px;
+    letter-spacing:0.03em;
+    color:var(--ink-soft);
+    margin-left:10px;
+  }
+
 
   /* ---------- Scroll cue ---------- */
   .scroll-cue{
@@ -735,7 +762,67 @@
     line-height:1.5;
   }
 
+
+  /* ---------- Top reviews banner ---------- */
+  .reviews-banner{
+    background:var(--ink);
+    color:#fff;
+  }
+  .reviews-banner a{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+    padding:20px 20px;
+    color:#fff;
+    text-decoration:none;
+    font-family:"Instrument Sans", sans-serif;
+    font-size:18px;
+    font-weight:600;
+    letter-spacing:0.01em;
+    text-align:center;
+  }
+  .reviews-banner .stars{
+    color:var(--rust);
+    letter-spacing:2px;
+    font-size:20px;
+  }
+  .reviews-banner .rb-text{
+    color:#fff;
+  }
+  .reviews-banner .rb-cta{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    color:#fff;
+    font-weight:800;
+    text-decoration:underline;
+    text-underline-offset:4px;
+    text-decoration-color:var(--rust);
+  }
+  .reviews-banner .rb-cta .arrow{
+    color:var(--rust);
+    transition:transform .15s ease;
+  }
+  .reviews-banner a:hover .rb-cta .arrow{
+    transform:translateX(3px);
+  }
+  @media (max-width:520px){
+    .reviews-banner a{ padding:16px 14px; font-size:15px; gap:8px; }
+    .reviews-banner .stars{ font-size:17px; }
+    .reviews-banner .rb-text{ display:block; width:100%; }
+  }
+
 </style>
+
+<div class="reviews-banner">
+  <a href="https://www.instagram.com/stories/highlights/18085693598163531/?hl=es" target="_blank" rel="noopener">
+    <span class="stars">★★★★★</span>
+    <span class="rb-text">Cientos de clientas ya confían en Modalisa</span>
+    <span class="rb-cta">Ver opiniones reales <span class="arrow">→</span></span>
+  </a>
+</div>
 
 <header class="top">
   <div class="wrap brandrow">
@@ -845,52 +932,78 @@
   <div class="accordion">
     <button class="acc-head" type="button" aria-expanded="false" data-acc-target="acc-remeras">
       <span class="acc-title">Remeras</span>
-      <span class="acc-meta">5 modelos <span class="acc-plus">+</span></span>
+      <span class="acc-meta">Modelo unisex y mujer <span class="acc-plus">+</span></span>
     </button>
     <div class="acc-panel" id="acc-remeras" hidden>
       <p class="acc-desc">Confeccionadas en algodón PREMIUM 24/1 extra suave. Cuello en rib con tapa costura de hombro a hombro. Tirillera a la vista, dando un toque estético extra a la prenda.</p>
-      <p class="acc-talles"><span>Talles</span> S — M — L — XL — XXL</p>
-      <div class="swatches">
-          <div class="swatch"><span class="dot" style="background:#f6f2e9"></span>Blanco</div>
-          <div class="swatch"><span class="dot" style="background:#161616"></span>Negro</div>
-          <div class="swatch"><span class="dot" style="background:#9d9a94"></span>Gris melange</div>
-          <div class="swatch"><span class="dot" style="background:#bc2f2f"></span>Rojo</div>
-          <div class="swatch"><span class="dot" style="background:#1c2740"></span>Azul marino</div>
-          <div class="swatch"><span class="dot" style="background:#d97a35"></span>Naranja</div>
-          <div class="swatch"><span class="dot" style="background:#e8bb3e"></span>Amarillo</div>
-          <div class="swatch"><span class="dot" style="background:#f0c6ce"></span>Rosa bb</div>
-          <div class="swatch"><span class="dot" style="background:#5b1a26"></span>Bordó</div>
-          <div class="swatch"><span class="dot" style="background:#556b3a"></span>Verde militar</div>
-          <div class="swatch"><span class="dot" style="background:#cdb997"></span>Arena</div>
-          <div class="swatch"><span class="dot" style="background:#c7b6de"></span>Lila</div>
-          <div class="swatch"><span class="dot" style="background:#6d4a37"></span>Chocolate</div>
-          <div class="swatch"><span class="dot" style="background:#2c5eb0"></span>Azul francia</div>
-          <div class="swatch"><span class="dot" style="background:#a7c98a"></span>Verde pistacho</div>
-          <div class="swatch"><span class="dot" style="background:#2e4f34"></span>Verde inglés</div>
+      <div class="acc-sub">
+        <p class="acc-sub-h">Unisex <span class="acc-sub-talles">S — M — L — XL — XXL</span></p>
+        <div class="swatches">
+            <div class="swatch"><span class="dot" style="background:#f6f2e9"></span>Blanco</div>
+            <div class="swatch"><span class="dot" style="background:#161616"></span>Negro</div>
+            <div class="swatch"><span class="dot" style="background:#9d9a94"></span>Gris melange</div>
+            <div class="swatch"><span class="dot" style="background:#bc2f2f"></span>Rojo</div>
+            <div class="swatch"><span class="dot" style="background:#1c2740"></span>Azul marino</div>
+            <div class="swatch"><span class="dot" style="background:#d97a35"></span>Naranja</div>
+            <div class="swatch"><span class="dot" style="background:#e8bb3e"></span>Amarillo</div>
+            <div class="swatch"><span class="dot" style="background:#f0c6ce"></span>Rosa bb</div>
+            <div class="swatch"><span class="dot" style="background:#5b1a26"></span>Bordó</div>
+            <div class="swatch"><span class="dot" style="background:#556b3a"></span>Verde militar</div>
+            <div class="swatch"><span class="dot" style="background:#cdb997"></span>Arena</div>
+            <div class="swatch"><span class="dot" style="background:#c7b6de"></span>Lila</div>
+            <div class="swatch"><span class="dot" style="background:#6d4a37"></span>Chocolate</div>
+            <div class="swatch"><span class="dot" style="background:#2c5eb0"></span>Azul francia</div>
+            <div class="swatch"><span class="dot" style="background:#a7c98a"></span>Verde pistacho</div>
+            <div class="swatch"><span class="dot" style="background:#2e4f34"></span>Verde inglés</div>
+        </div>
+        <p class="swatch-count">16 colores</p>
       </div>
-      <p class="swatch-count">16 colores</p>
+      <div class="acc-sub">
+        <p class="acc-sub-h">Mujer <span class="acc-sub-talles">S — M — L — XL</span></p>
+        <div class="swatches">
+            <div class="swatch"><span class="dot" style="background:#f6f2e9"></span>Blanco</div>
+            <div class="swatch"><span class="dot" style="background:#161616"></span>Negro</div>
+            <div class="swatch"><span class="dot" style="background:#bc2f2f"></span>Rojo</div>
+            <div class="swatch"><span class="dot" style="background:#9d9a94"></span>Gris melange</div>
+            <div class="swatch"><span class="dot" style="background:#1c2740"></span>Azul marino</div>
+        </div>
+        <p class="swatch-count">5 colores</p>
+      </div>
     </div>
 
     <button class="acc-head" type="button" aria-expanded="false" data-acc-target="acc-buzos">
       <span class="acc-title">Buzos</span>
-      <span class="acc-meta">2 modelos <span class="acc-plus">+</span></span>
+      <span class="acc-meta">Modelo cuello redondo y capucha <span class="acc-plus">+</span></span>
     </button>
     <div class="acc-panel" id="acc-buzos" hidden>
       <p class="acc-desc">Confeccionados en Friza Peinada Invisible. Bolsillo invisible ojal de punta a punta, cordón con puntera metálica antioxidante. Capucha frizada, muy calentitos — ideales para otoño/invierno.</p>
-      <p class="acc-talles"><span>Talles</span> S — M — L — XL — XXL</p>
-      <div class="swatches">
-          <div class="swatch"><span class="dot" style="background:#161616"></span>Negro</div>
-          <div class="swatch"><span class="dot" style="background:#2c5eb0"></span>Azul francia</div>
-          <div class="swatch"><span class="dot" style="background:#a7c98a"></span>Verde pistacho</div>
-          <div class="swatch"><span class="dot" style="background:#d9a3a1"></span>Rosa vintage</div>
-          <div class="swatch"><span class="dot" style="background:#7b5ea6"></span>Violeta</div>
-          <div class="swatch"><span class="dot" style="background:#9d9a94"></span>Gris melange</div>
-          <div class="swatch"><span class="dot" style="background:#6d4a37"></span>Chocolate</div>
-          <div class="swatch"><span class="dot" style="background:#bc2f2f"></span>Rojo</div>
-          <div class="swatch"><span class="dot" style="background:#2e4f34"></span>Verde inglés</div>
-          <div class="swatch"><span class="dot" style="background:#cdb997"></span>Arena</div>
+      <div class="acc-sub">
+        <p class="acc-sub-h">Capucha <span class="acc-sub-talles">S — M — L — XL — XXL</span></p>
+        <div class="swatches">
+            <div class="swatch"><span class="dot" style="background:#161616"></span>Negro</div>
+            <div class="swatch"><span class="dot" style="background:#2c5eb0"></span>Azul francia</div>
+            <div class="swatch"><span class="dot" style="background:#bc2f2f"></span>Rojo</div>
+            <div class="swatch"><span class="dot" style="background:#9d9a94"></span>Gris melange</div>
+            <div class="swatch"><span class="dot" style="background:#6d4a37"></span>Chocolate</div>
+            <div class="swatch"><span class="dot" style="background:#d9a3a1"></span>Rosa vintage</div>
+            <div class="swatch"><span class="dot" style="background:#7b5ea6"></span>Violeta</div>
+            <div class="swatch"><span class="dot" style="background:#2e4f34"></span>Verde inglés</div>
+            <div class="swatch"><span class="dot" style="background:#1c2740"></span>Azul marino</div>
+            <div class="swatch"><span class="dot" style="background:#a7c98a"></span>Verde pistacho</div>
+        </div>
+        <p class="swatch-count">10 colores</p>
       </div>
-      <p class="swatch-count">10 colores</p>
+      <div class="acc-sub">
+        <p class="acc-sub-h">Cuello redondo <span class="acc-sub-talles">S — M — L — XL — XXL</span></p>
+        <div class="swatches">
+            <div class="swatch"><span class="dot" style="background:#161616"></span>Negro</div>
+            <div class="swatch"><span class="dot" style="background:#5b1a26"></span>Bordo</div>
+            <div class="swatch"><span class="dot" style="background:#556b3a"></span>Verde militar</div>
+            <div class="swatch"><span class="dot" style="background:#1c2740"></span>Azul marino</div>
+            <div class="swatch"><span class="dot" style="background:#2e4f34"></span>Verde inglés</div>
+        </div>
+        <p class="swatch-count">5 colores</p>
+      </div>
     </div>
   </div>
 </section>
@@ -963,6 +1076,13 @@
 </footer>
 
 <script>
+(function(){
+  document.querySelectorAll('.side-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tab.classList.add('side-tab-clicked');
+    });
+  });
+})();
 (function(){
   document.querySelectorAll('[data-carousel]').forEach(function(car){
     var track = car.querySelector('.carousel-track');
