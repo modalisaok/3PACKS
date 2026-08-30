@@ -21,6 +21,7 @@
   }
 
   *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   html,body{margin:0;padding:0;}
   body{
     background:var(--paper);
@@ -33,6 +34,7 @@
   :focus-visible{outline:2px solid var(--focus); outline-offset:3px;}
   @media (prefers-reduced-motion: reduce){
     *{animation:none !important; transition:none !important;}
+    html{scroll-behavior:auto;}
   }
 
   .wrap{
@@ -171,6 +173,71 @@
     font-weight:700;
     flex:none;
   }
+  .features li:has(.feature-link){
+    padding:0;
+    background:var(--rust);
+    border-color:var(--rust);
+  }
+  .feature-link{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:9px 16px;
+    color:#fff;
+    text-decoration:none;
+    font-weight:600;
+  }
+  .feature-link .check{color:#fff;}
+  .feature-link:hover{text-decoration:underline;}
+  .feature-arrow{
+    display:inline-block;
+    animation:scroll-bounce 1.8s ease-in-out infinite;
+  }
+
+  /* Side tabs: fixed, always-visible shortcut to the photo gallery */
+  .side-tab{
+    position:fixed;
+    top:32%;
+    transform:translateY(-50%);
+    z-index:40;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:var(--rust);
+    color:#fff;
+    text-decoration:none;
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:10px 8px;
+    writing-mode:vertical-rl;
+    border-radius:0 10px 10px 0;
+    box-shadow:0 4px 14px rgba(0,0,0,0.16);
+    transition:padding 0.15s ease;
+  }
+  .side-tab:hover{ padding:10px 12px; }
+  .side-tab.side-tab-left{
+    left:0;
+    border-radius:0 10px 10px 0;
+  }
+  .side-tab.side-tab-right{
+    right:0;
+    transform:translateY(-50%) rotate(180deg);
+    border-radius:0 10px 10px 0;
+  }
+  @media (max-width:680px){
+    .side-tab{ top:26%; }
+  }
+  .side-tab .side-tab-arrow{
+    display:inline-block;
+    animation:scroll-bounce 1.8s ease-in-out infinite;
+  }
+  @media (max-width:520px){
+    .side-tab{ font-size:10px; padding:8px 6px; }
+  }
+
   @media (max-width:680px){
     .features{gap:8px; margin-top:14px;}
     .features li{font-size:11.5px; padding:7px 12px; text-align:left;}
@@ -421,6 +488,116 @@
     margin-bottom:6px;
   }
 
+  /* ---------- Prendas disponibles (accordion) ---------- */
+  .prendas{
+    padding:clamp(24px,4vw,40px) 0 8px;
+    border-top:1px solid var(--line);
+  }
+  .prendas .eyebrow{text-align:center;}
+  .prendas-h{
+    font-family:"Fraunces", serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(20px,2.6vw,26px);
+    text-align:center;
+    margin:0 0 24px;
+  }
+  .accordion{
+    max-width:720px;
+    margin:0 auto;
+    border-top:1px solid var(--line);
+  }
+  .acc-head{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    background:none;
+    border:none;
+    border-bottom:1px solid var(--line);
+    padding:18px 4px;
+    cursor:pointer;
+    text-align:left;
+    font-family:"Fraunces", serif;
+    font-size:19px;
+    color:var(--ink);
+  }
+  .acc-head:hover{color:var(--rust);}
+  .acc-meta{
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    font-size:11px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .acc-plus{
+    display:inline-block;
+    font-size:16px;
+    color:var(--rust);
+    transition:transform .2s ease;
+  }
+  .acc-head[aria-expanded="true"] .acc-plus{transform:rotate(45deg);}
+  .acc-panel{
+    padding:4px 4px 28px;
+    border-bottom:1px solid var(--line);
+  }
+  .acc-desc{
+    font-size:14.5px;
+    color:var(--ink-soft);
+    line-height:1.6;
+    margin:14px 0 14px;
+    max-width:60ch;
+  }
+  .acc-talles{
+    font-size:13px;
+    margin:0 0 18px;
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    letter-spacing:0.02em;
+  }
+  .acc-talles span{
+    text-transform:uppercase;
+    color:var(--rust-deep);
+    letter-spacing:0.08em;
+    margin-right:10px;
+    font-size:11px;
+  }
+  .swatches{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px 10px;
+  }
+  @media (max-width:520px){
+    .swatches{grid-template-columns:repeat(3,1fr);}
+  }
+  .swatch{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    text-align:center;
+  }
+  .swatch .dot{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    display:block;
+  }
+  .swatch-count{
+    margin:18px 0 0;
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
   /* ---------- Scroll cue ---------- */
   .scroll-cue{
     text-align:center;
@@ -570,6 +747,9 @@
   </div>
 </header>
 
+<a class="side-tab side-tab-left" href="#gallery" aria-label="Ver fotos de las prendas">Ver prendas <span class="side-tab-arrow">↓</span></a>
+<a class="side-tab side-tab-right" href="#gallery" aria-label="Ver fotos de las prendas">Ver prendas <span class="side-tab-arrow">↓</span></a>
+
 <section class="hero wrap">
   <p class="eyebrow">Packs cerrados · listos para pedir</p>
   <h1>Elegí tu ritmo de<br><em>progreso</em></h1>
@@ -578,7 +758,7 @@
   <ul class="features">
     <li><span class="check">✓</span> Armás cada combo como quieras: vos elegís colores y talles</li>
     <li><span class="check">✓</span> En remeras sumás el corte nuevo de mujer o el corte unisex</li>
-    <li><span class="check">✓</span> Deslizá hasta abajo y mirá fotos de algunas de nuestras prendas</li>
+    <li><a class="feature-link" href="#gallery"><span class="check">✓</span> Ver fotos de las prendas <span class="feature-arrow">↓</span></a></li>
   </ul>
 </section>
 
@@ -658,21 +838,60 @@
   </div>
 </section>
 
-<section class="more wrap">
-  <div class="more-head">
-    <h3>¿Necesitás un volumen distinto?</h3>
-    <p>Escribinos directo y armamos una propuesta a medida.</p>
-  </div>
-  <div class="more-grid">
-    <a class="more-link" href="https://wa.me/5491128492979?text=Hola%20Modalisa%21%20Necesito%20m%C3%A1s%20de%20200%20prendas%2C%20%C2%BFme%20pasan%20precios%20por%20mayor%3F" target="_blank" rel="noopener">
-      +200 prendas <span class="arrow">→</span>
-    </a>
-    <a class="more-link" href="https://wa.me/5491128492979?text=Hola%20Modalisa%21%20Necesito%20m%C3%A1s%20de%20500%20prendas%2C%20%C2%BFme%20pasan%20precios%20por%20mayor%3F" target="_blank" rel="noopener">
-      +500 prendas <span class="arrow">→</span>
-    </a>
-    <a class="more-link" href="https://wa.me/5491128492979?text=Hola%20Modalisa%21%20Quiero%20armar%20mi%20marca%20con%20Modalisa%2C%20%C2%BFme%20asesoran%3F" target="_blank" rel="noopener">
-      Armar mi marca <span class="arrow">→</span>
-    </a>
+<section class="prendas wrap">
+  <p class="eyebrow">Prendas disponibles</p>
+  <h3 class="prendas-h">Elegí el modelo y armá tu combo</h3>
+
+  <div class="accordion">
+    <button class="acc-head" type="button" aria-expanded="false" data-acc-target="acc-remeras">
+      <span class="acc-title">Remeras</span>
+      <span class="acc-meta">5 modelos <span class="acc-plus">+</span></span>
+    </button>
+    <div class="acc-panel" id="acc-remeras" hidden>
+      <p class="acc-desc">Confeccionadas en algodón PREMIUM 24/1 extra suave. Cuello en rib con tapa costura de hombro a hombro. Tirillera a la vista, dando un toque estético extra a la prenda.</p>
+      <p class="acc-talles"><span>Talles</span> S — M — L — XL — XXL</p>
+      <div class="swatches">
+          <div class="swatch"><span class="dot" style="background:#f6f2e9"></span>Blanco</div>
+          <div class="swatch"><span class="dot" style="background:#161616"></span>Negro</div>
+          <div class="swatch"><span class="dot" style="background:#9d9a94"></span>Gris melange</div>
+          <div class="swatch"><span class="dot" style="background:#bc2f2f"></span>Rojo</div>
+          <div class="swatch"><span class="dot" style="background:#1c2740"></span>Azul marino</div>
+          <div class="swatch"><span class="dot" style="background:#d97a35"></span>Naranja</div>
+          <div class="swatch"><span class="dot" style="background:#e8bb3e"></span>Amarillo</div>
+          <div class="swatch"><span class="dot" style="background:#f0c6ce"></span>Rosa bb</div>
+          <div class="swatch"><span class="dot" style="background:#5b1a26"></span>Bordó</div>
+          <div class="swatch"><span class="dot" style="background:#556b3a"></span>Verde militar</div>
+          <div class="swatch"><span class="dot" style="background:#cdb997"></span>Arena</div>
+          <div class="swatch"><span class="dot" style="background:#c7b6de"></span>Lila</div>
+          <div class="swatch"><span class="dot" style="background:#6d4a37"></span>Chocolate</div>
+          <div class="swatch"><span class="dot" style="background:#2c5eb0"></span>Azul francia</div>
+          <div class="swatch"><span class="dot" style="background:#a7c98a"></span>Verde pistacho</div>
+          <div class="swatch"><span class="dot" style="background:#2e4f34"></span>Verde inglés</div>
+      </div>
+      <p class="swatch-count">16 colores</p>
+    </div>
+
+    <button class="acc-head" type="button" aria-expanded="false" data-acc-target="acc-buzos">
+      <span class="acc-title">Buzos</span>
+      <span class="acc-meta">2 modelos <span class="acc-plus">+</span></span>
+    </button>
+    <div class="acc-panel" id="acc-buzos" hidden>
+      <p class="acc-desc">Confeccionados en Friza Peinada Invisible. Bolsillo invisible ojal de punta a punta, cordón con puntera metálica antioxidante. Capucha frizada, muy calentitos — ideales para otoño/invierno.</p>
+      <p class="acc-talles"><span>Talles</span> S — M — L — XL — XXL</p>
+      <div class="swatches">
+          <div class="swatch"><span class="dot" style="background:#161616"></span>Negro</div>
+          <div class="swatch"><span class="dot" style="background:#2c5eb0"></span>Azul francia</div>
+          <div class="swatch"><span class="dot" style="background:#a7c98a"></span>Verde pistacho</div>
+          <div class="swatch"><span class="dot" style="background:#d9a3a1"></span>Rosa vintage</div>
+          <div class="swatch"><span class="dot" style="background:#7b5ea6"></span>Violeta</div>
+          <div class="swatch"><span class="dot" style="background:#9d9a94"></span>Gris melange</div>
+          <div class="swatch"><span class="dot" style="background:#6d4a37"></span>Chocolate</div>
+          <div class="swatch"><span class="dot" style="background:#bc2f2f"></span>Rojo</div>
+          <div class="swatch"><span class="dot" style="background:#2e4f34"></span>Verde inglés</div>
+          <div class="swatch"><span class="dot" style="background:#cdb997"></span>Arena</div>
+      </div>
+      <p class="swatch-count">10 colores</p>
+    </div>
   </div>
 </section>
 
@@ -681,7 +900,7 @@
   <span class="scroll-cue-arrow" aria-hidden="true">&#8595;</span>
 </div>
 
-<section class="gallery wrap">
+<section class="gallery wrap" id="gallery">
     <div class="hero-carousel-col">
       <p class="gallery-label">Remeras</p>
       <div class="carousel" data-carousel>
@@ -721,8 +940,26 @@
     </div>
 </section>
 
+<section class="more wrap">
+  <div class="more-head">
+    <h3>¿Necesitás un volumen distinto?</h3>
+    <p>Escribinos directo y armamos una propuesta a medida.</p>
+  </div>
+  <div class="more-grid">
+    <a class="more-link" href="https://wa.me/5491128492979?text=Hola%20Modalisa%21%20Necesito%20m%C3%A1s%20de%20200%20prendas%2C%20%C2%BFme%20pasan%20precios%20por%20mayor%3F" target="_blank" rel="noopener">
+      +200 prendas <span class="arrow">→</span>
+    </a>
+    <a class="more-link" href="https://wa.me/5491128492979?text=Hola%20Modalisa%21%20Necesito%20m%C3%A1s%20de%20500%20prendas%2C%20%C2%BFme%20pasan%20precios%20por%20mayor%3F" target="_blank" rel="noopener">
+      +500 prendas <span class="arrow">→</span>
+    </a>
+    <a class="more-link" href="https://wa.me/5491128492979?text=Hola%20Modalisa%21%20Quiero%20armar%20mi%20marca%20con%20Modalisa%2C%20%C2%BFme%20asesoran%3F" target="_blank" rel="noopener">
+      Armar mi marca <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
 <footer class="wrap">
-  <p>MODALISA · Lomas del Mirador, Buenos Aires</p>
+  <p>MODALISA · Buenos Aires · Argentina</p>
 </footer>
 
 <script>
@@ -758,6 +995,25 @@
     }, {passive:true});
     var timer = setInterval(function(){ go(i + 1); }, 4500);
     car.addEventListener('mouseenter', function(){ clearInterval(timer); });
+  });
+})();
+
+(function(){
+  document.querySelectorAll('.acc-head').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var panel = document.getElementById(btn.getAttribute('data-acc-target'));
+      var isOpen = btn.getAttribute('aria-expanded') === 'true';
+      document.querySelectorAll('.acc-head').forEach(function(b){
+        b.setAttribute('aria-expanded', 'false');
+      });
+      document.querySelectorAll('.acc-panel').forEach(function(p){
+        p.hidden = true;
+      });
+      if (!isOpen) {
+        btn.setAttribute('aria-expanded', 'true');
+        panel.hidden = false;
+      }
+    });
   });
 })();
 </script>
