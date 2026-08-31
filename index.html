@@ -196,8 +196,8 @@
 
   /* Side tabs: fixed, always-visible shortcut to the photo gallery */
   .side-tab{
-    position:absolute;
-    top:260px;
+    position:fixed;
+    top:32%;
     transform:translateY(-50%) translateZ(0);
     -webkit-transform:translateY(-50%) translateZ(0);
     will-change:transform;
@@ -240,7 +240,7 @@
   .side-tab.side-tab-clicked.side-tab-left{ transform:translateY(-50%) translateX(-12px) translateZ(0); }
   .side-tab.side-tab-clicked.side-tab-right{ transform:translateY(-50%) rotate(180deg) translateX(-12px) translateZ(0); }
   @media (max-width:680px){
-    .side-tab{ top:220px; }
+    .side-tab{ top:28%; }
   }
   .side-tab .side-tab-arrow{
     display:inline-block;
@@ -1081,77 +1081,16 @@
 
 <script>
 if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
-window.scrollTo(0, 0);
-window.addEventListener('load', function(){ window.scrollTo(0, 0); });
+window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+window.addEventListener('load', function(){ window.scrollTo({ top: 0, left: 0, behavior: 'auto' }); });
 (function(){
-  var tabs = document.querySelectorAll('.side-tab');
-  if (!tabs.length) return;
-
-  tabs.forEach(function(tab){
+  // Plain native position:fixed, a static CSS top (set in the stylesheet) and
+  // zero JS repositioning: nothing here ever touches the tab's position, so
+  // there is nothing that can lag, jump, or drift during scroll.
+  document.querySelectorAll('.side-tab').forEach(function(tab){
     tab.addEventListener('click', function(){
       tab.classList.add('side-tab-clicked');
     });
-  });
-
-  // The tabs use position:absolute and we drive their "top" ourselves on every
-  // scroll frame (top = scrollY + baseOffset). This avoids native
-  // position:fixed entirely, which is what was causing the visible jump/lag on
-  // mobile browsers (their address bar hiding/showing during scroll makes
-  // native fixed elements snap into a new spot). Doing it in JS keeps the tab
-  // glued to the same on-screen spot on every device.
-  var baseOffset = null;
-
-  function computeBaseOffset(){
-    var header = document.querySelector('header.top');
-    var hero = document.querySelector('.hero');
-    if (!header || !hero) return null;
-    var scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
-    var headerBottom = header.getBoundingClientRect().bottom + scrollTop;
-    var heroTop = hero.getBoundingClientRect().top + scrollTop;
-    var mid = (headerBottom + heroTop) / 2;
-    var offset = mid - scrollTop;
-    return offset > 40 ? offset : null;
-  }
-
-  function applyPosition(){
-    if (baseOffset === null) return;
-    var scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
-    var top = scrollTop + baseOffset;
-    tabs.forEach(function(tab){ tab.style.top = top + 'px'; });
-  }
-
-  function init(){
-    var offset = computeBaseOffset();
-    if (offset !== null) baseOffset = offset;
-    applyPosition();
-  }
-
-  init();
-  window.addEventListener('load', function(){ setTimeout(init, 50); });
-
-  var ticking = false;
-  window.addEventListener('scroll', function(){
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(function(){
-      applyPosition();
-      ticking = false;
-    });
-  }, {passive:true});
-
-  // Only recompute the base offset on a genuine layout change (orientation /
-  // width change) — iOS fires 'resize' when its address bar shows/hides
-  // during a normal scroll (height-only change), so we ignore those.
-  var lastWidth = window.innerWidth;
-  var resizeTimer;
-  window.addEventListener('resize', function(){
-    if (window.innerWidth === lastWidth) return;
-    lastWidth = window.innerWidth;
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(init, 150);
-  });
-  window.addEventListener('orientationchange', function(){
-    setTimeout(init, 200);
   });
 })();
 (function(){
