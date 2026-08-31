@@ -196,9 +196,13 @@
 
   /* Side tabs: fixed, always-visible shortcut to the photo gallery */
   .side-tab{
-    position:fixed;
-    top:max(190px, 42%);
-    transform:translateY(-50%);
+    position:absolute;
+    top:260px;
+    transform:translateY(-50%) translateZ(0);
+    -webkit-transform:translateY(-50%) translateZ(0);
+    will-change:transform;
+    -webkit-backface-visibility:hidden;
+    backface-visibility:hidden;
     z-index:40;
     display:flex;
     align-items:center;
@@ -218,28 +222,28 @@
     transition:padding 0.15s ease, opacity 0.35s ease, transform 0.35s ease;
     opacity:1;
   }
-  .side-tab:hover{ padding:14px 14px; }
+  /* hover padding-grow removed: any size change on mouseover reads as "movement" while scrolling */
   .side-tab.side-tab-left{
     left:0;
     border-radius:0 12px 12px 0;
   }
   .side-tab.side-tab-right{
     right:0;
-    transform:translateY(-50%) rotate(180deg);
+    transform:translateY(-50%) rotate(180deg) translateZ(0);
+    -webkit-transform:translateY(-50%) rotate(180deg) translateZ(0);
     border-radius:0 12px 12px 0;
   }
   .side-tab.side-tab-clicked{
     opacity:0;
     pointer-events:none;
   }
-  .side-tab.side-tab-clicked.side-tab-left{ transform:translateY(-50%) translateX(-12px); }
-  .side-tab.side-tab-clicked.side-tab-right{ transform:translateY(-50%) rotate(180deg) translateX(-12px); }
+  .side-tab.side-tab-clicked.side-tab-left{ transform:translateY(-50%) translateX(-12px) translateZ(0); }
+  .side-tab.side-tab-clicked.side-tab-right{ transform:translateY(-50%) rotate(180deg) translateX(-12px) translateZ(0); }
   @media (max-width:680px){
-    .side-tab{ top:max(170px, 36%); }
+    .side-tab{ top:220px; }
   }
   .side-tab .side-tab-arrow{
     display:inline-block;
-    animation:scroll-bounce 1.8s ease-in-out infinite;
   }
   @media (max-width:520px){
     .side-tab{ font-size:12px; padding:12px 8px; }
@@ -1076,11 +1080,78 @@
 </footer>
 
 <script>
+if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+window.scrollTo(0, 0);
+window.addEventListener('load', function(){ window.scrollTo(0, 0); });
 (function(){
-  document.querySelectorAll('.side-tab').forEach(function(tab){
+  var tabs = document.querySelectorAll('.side-tab');
+  if (!tabs.length) return;
+
+  tabs.forEach(function(tab){
     tab.addEventListener('click', function(){
       tab.classList.add('side-tab-clicked');
     });
+  });
+
+  // The tabs use position:absolute and we drive their "top" ourselves on every
+  // scroll frame (top = scrollY + baseOffset). This avoids native
+  // position:fixed entirely, which is what was causing the visible jump/lag on
+  // mobile browsers (their address bar hiding/showing during scroll makes
+  // native fixed elements snap into a new spot). Doing it in JS keeps the tab
+  // glued to the same on-screen spot on every device.
+  var baseOffset = null;
+
+  function computeBaseOffset(){
+    var header = document.querySelector('header.top');
+    var hero = document.querySelector('.hero');
+    if (!header || !hero) return null;
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+    var headerBottom = header.getBoundingClientRect().bottom + scrollTop;
+    var heroTop = hero.getBoundingClientRect().top + scrollTop;
+    var mid = (headerBottom + heroTop) / 2;
+    var offset = mid - scrollTop;
+    return offset > 40 ? offset : null;
+  }
+
+  function applyPosition(){
+    if (baseOffset === null) return;
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+    var top = scrollTop + baseOffset;
+    tabs.forEach(function(tab){ tab.style.top = top + 'px'; });
+  }
+
+  function init(){
+    var offset = computeBaseOffset();
+    if (offset !== null) baseOffset = offset;
+    applyPosition();
+  }
+
+  init();
+  window.addEventListener('load', function(){ setTimeout(init, 50); });
+
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      applyPosition();
+      ticking = false;
+    });
+  }, {passive:true});
+
+  // Only recompute the base offset on a genuine layout change (orientation /
+  // width change) — iOS fires 'resize' when its address bar shows/hides
+  // during a normal scroll (height-only change), so we ignore those.
+  var lastWidth = window.innerWidth;
+  var resizeTimer;
+  window.addEventListener('resize', function(){
+    if (window.innerWidth === lastWidth) return;
+    lastWidth = window.innerWidth;
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(init, 150);
+  });
+  window.addEventListener('orientationchange', function(){
+    setTimeout(init, 200);
   });
 })();
 (function(){
