@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Combos MODALISA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: urgente pero prolijo, voz de fabricante que habla de igual a igual
+   IDEA: la etiqueta de liquidación colgada del perchero, con reloj corriendo
+   PICTURE: tira de fotos reales + reloj grande de cuenta regresiva
+   COLOUR and TYPE: tinta #15141E dominante, óxido #B85C3C de soporte, naranja #FF601E como acento; Poppins
+   LAYOUT: hero oscuro con reloj, 4 combos en grilla, armador del pedido en una columna, cierre a WhatsApp */
+:root{color-scheme:light dark;--ink:#15141E;--ink2:#1f1d2b;--rust:#B85C3C;--or:#FF601E;--cream:light-dark(#F7F3EE,#121119);--card:light-dark(#fff,#1c1a26);--tx:light-dark(#15141E,#f2eee8);--mut:light-dark(#6b6670,#a7a2ad);--line:light-dark(#e6dfd6,#2c2a37)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--cream);color:var(--tx);font:16px/1.55 Poppins,system-ui,sans-serif;overflow-x:clip}
+.band{padding:clamp(28px,4vw,64px) max(5vw,16px)}
+.wrap{max-width:1180px;margin:0 auto}
+button,input,select{font:inherit}
+.top{background:var(--ink);color:#fff;text-align:center;padding:14px 16px;font-weight:800;letter-spacing:.06em;font-size:20px}
+.strip{background:var(--or);color:#15141E;font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden}
+.strip div{display:inline-block;padding:8px 0;animation:mq 28s linear infinite}
+.strip span{margin:0 22px}
+@keyframes mq{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.strip div{animation:none}}
+.hero{background:var(--ink);color:#fff}
+.hgrid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
+.kick{display:inline-block;background:var(--rust);color:#fff;font-weight:600;font-size:14px;padding:6px 14px;border-radius:99px}
+h1{font-size:clamp(38px,6vw,64px);line-height:1.02;margin:16px 0 12px;font-weight:800;text-wrap:balance}
+h1 em{font-style:normal;color:var(--or)}
+.lead{font-size:17px;color:#d8d4dc;max-width:34em;margin:0 0 22px}
+.clock{display:flex;gap:10px;flex-wrap:wrap}
+.clock div{background:#24222f;border:1px solid #34313f;border-radius:14px;padding:10px 0;width:clamp(68px,9vw,88px);text-align:center}
+.clock b{display:block;font-size:clamp(28px,4vw,40px);line-height:1.1;font-variant-numeric:tabular-nums}
+.clock small{font-size:13px;color:#a9a4b0}
+.cl-lbl{font-size:14px;color:#a9a4b0;margin:0 0 8px}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.pills span{border:1px solid #4a4656;border-radius:99px;padding:6px 14px;font-size:14px}
+.photos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.photos img{width:100%;aspect-ratio:180/329;object-fit:cover;border-radius:14px;display:block}
+.photos img:nth-child(2){transform:translateY(-18px)}
+.photos .tag{grid-column:1/-1;background:#fff;color:var(--ink);border-radius:14px;padding:12px 16px;font-weight:700;text-align:center;font-size:15px}
+.tag b{color:var(--rust)}
+h2{font-size:clamp(28px,4vw,40px);line-height:1.08;margin:0 0 8px;font-weight:800;text-wrap:balance}
+.sub{color:var(--mut);margin:0 0 26px}
+.combos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.cb{position:relative;background:var(--card);border:2px solid var(--line);border-radius:20px;padding:22px 20px 20px;display:flex;flex-direction:column;cursor:pointer;text-align:left;color:inherit;transition:border-color .15s,transform .15s}
+.cb:hover{transform:translateY(-3px)}
+.cb:focus-visible{outline:3px solid var(--or);outline-offset:3px}
+.cb.on{border-color:var(--or);box-shadow:0 0 0 4px color-mix(in srgb,var(--or) 22%,transparent)}
+.cb .badge{position:absolute;top:-13px;left:18px;background:var(--or);color:#15141E;font-size:13px;font-weight:700;padding:3px 12px;border-radius:99px}
+.cb .nm{font-weight:700;font-size:17px}
+.cb .qty{font-size:46px;font-weight:800;line-height:1;margin:10px 0 2px}
+.cb .qty small{font-size:18px;font-weight:600;color:var(--mut)}
+.cb .unit{font-size:24px;font-weight:800;color:var(--rust);margin-top:10px;white-space:nowrap}
+.cb .unit small{font-size:14px;font-weight:600}
+.cb .tot{color:var(--mut);font-size:14px;white-space:nowrap}
+.cb .save{margin-top:12px;font-size:14px;font-weight:600;color:light-dark(#1d7a46,#6fd39a)}
+.cb .pick{margin-top:auto;padding-top:16px}
+.cb .pick span{display:block;text-align:center;border-radius:12px;padding:10px;font-weight:700;background:var(--ink);color:#fff}
+.cb.on .pick span{background:var(--or);color:#15141E}
+.details{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:34px}
+.details figure{margin:0;background:var(--ink);border-radius:16px;overflow:hidden;color:#fff}
+.details img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+.details figcaption{padding:10px 14px;font-size:14px}
+.build{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(18px,3vw,32px);max-width:820px;margin:0 auto}
+.prog{display:flex;justify-content:space-between;font-weight:600;font-size:15px;margin-bottom:8px}
+.bar{height:12px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--or);transition:width .25s}
+.bar.ok i{background:light-dark(#1d7a46,#4cc483)}
+.row{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.4fr) minmax(0,.8fr) auto auto;gap:8px;align-items:center;margin-top:12px}
+select,input{width:100%;min-height:46px;border:1px solid var(--line);border-radius:12px;padding:8px 12px;background:var(--cream);color:var(--tx);font-size:16px}
+select:focus-visible,input:focus-visible,button:focus-visible{outline:3px solid var(--or);outline-offset:2px}
+.step{display:flex;align-items:center;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.step button{width:40px;height:44px;border:0;background:transparent;color:var(--tx);font-size:20px;cursor:pointer}
+.step b{width:34px;text-align:center;font-variant-numeric:tabular-nums}
+.del{width:44px;height:44px;border:0;background:transparent;color:var(--mut);font-size:22px;cursor:pointer;border-radius:10px}
+.add{margin-top:14px;border:2px dashed var(--line);background:transparent;color:var(--tx);border-radius:12px;padding:12px;width:100%;font-weight:600;cursor:pointer;min-height:48px}
+.sw{display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid #0003;vertical-align:-2px;margin-right:6px}
+.f2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px}
+label{font-size:14px;font-weight:600;display:block;margin-bottom:4px}
+.empty{color:var(--mut);text-align:center;padding:18px 0 4px}
+.sum{margin-top:22px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:16px;align-items:flex-end;flex-wrap:wrap}
+.sum .t{font-size:clamp(28px,4vw,36px);font-weight:800;line-height:1;white-space:nowrap}
+.sum small{color:var(--mut);font-size:14px;display:block}
+.wa{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#1faa59;color:#fff;font-weight:700;text-decoration:none;border-radius:14px;padding:14px 22px;min-height:52px;font-size:17px}
+.wa[aria-disabled=true]{background:var(--line);color:var(--mut);pointer-events:none}
+.hint{font-size:14px;color:var(--mut);margin-top:10px;text-align:right}
+.close{background:var(--ink);color:#fff;text-align:center}
+.close p{color:#cfcad5;margin:6px 0 0}
+.close .q{font-size:clamp(22px,3vw,30px);font-weight:700;color:#fff;margin:0}
+.end{display:none;background:var(--rust);color:#fff;text-align:center;padding:12px;font-weight:600}
+@media(max-width:900px){.combos{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:24px}}
+@media(max-width:760px){.hgrid{grid-template-columns:minmax(0,1fr)}.photos{order:-1}}
+@media(max-width:600px){.details{grid-template-columns:minmax(0,1fr)}.f2{grid-template-columns:minmax(0,1fr)}
+.row{grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:12px;border:1px solid var(--line);border-radius:14px}
+.row .c-color{grid-column:1/-1;order:-1}.row .del{justify-self:end}.sum{flex-direction:column;align-items:stretch}.wa{width:100%}.hint{text-align:center}}
+@media(max-width:420px){.combos{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<div class="top">MODALISA</div>
+<div class="strip" aria-hidden="true"><div id="mq"></div></div>
+<div class="end" id="end">La promo de noviembre terminó. Escribinos igual y te pasamos los precios vigentes.</div>
+
+<section class="hero band">
+ <div class="wrap hgrid">
+  <div>
+   <span class="kick">Últimos días del mes</span>
+   <h1>Combos <em>MODALISA</em> a precio de noviembre</h1>
+   <p class="lead">Remeras de algodón 24/1 premium extra suaves, listas para estampar. Elegí tu combo, armalo con tus colores y talles, y reservalo antes de que cierre el mes.</p>
+   <p class="cl-lbl">La promo termina el domingo 30 a las 23:59</p>
+   <div class="clock" id="clock" aria-live="polite">
+    <div><b id="cd">0</b><small>días</small></div><div><b id="ch">00</b><small>horas</small></div><div><b id="cm">00</b><small>min</small></div><div><b id="cs">00</b><small>seg</small></div>
+   </div>
+   <div class="pills"><span>Envíos a todo el país</span><span>Tu pedido en 24 hs</span><span>Unisex S al XXL · Mujer S al XL</span></div>
+  </div>
+  <div class="photos">
+   <img src="img/m1.jpg" alt="Remera unisex naranja"><img src="img/m3.jpg" alt="Remera unisex negra"><img src="img/m5.jpg" alt="Remera de mujer roja">
+   <div class="tag">14 colores unisex + 4 de mujer · <b>combinás como quieras</b></div>
+  </div>
+ </div>
+</section>
+
+<section class="band" id="combos">
+ <div class="wrap">
+  <h2>Elegí tu combo</h2>
+  <p class="sub">Cuantas más llevás, menos pagás cada una. Podés surtir colores, talles y modelos dentro del mismo combo.</p>
+  <div class="combos" id="cgrid"></div>
+  <div class="details">
+   <figure><img src="img/d1.jpg" alt="Cuello en rib y tapacostura"><figcaption>Tapa costura de hombro a hombro con cuello en rib</figcaption></figure>
+   <figure><img src="img/d2.jpg" alt="Terminación del cuello"><figcaption>Terminaciones prolijas en cada cuello</figcaption></figure>
+   <figure><img src="img/d3.jpg" alt="Tirillera a la vista"><figcaption>Tirillera a la vista, terminación premium</figcaption></figure>
+  </div>
+ </div>
+</section>
+
+<section class="band" id="armar" style="padding-top:0">
+ <div class="wrap">
+  <h2 style="text-align:center">Armá tu pedido</h2>
+  <p class="sub" style="text-align:center" id="bsub">Primero elegí un combo arriba.</p>
+  <div class="build">
+   <div class="prog"><span id="plbl">0 de 0 remeras</span><span id="pfalta"></span></div>
+   <div class="bar" id="bar"><i id="bari"></i></div>
+   <div id="rows"></div>
+   <p class="empty" id="empty">Sumá colores y talles hasta completar tu combo.</p>
+   <button class="add" id="add" type="button">+ Agregar color y talle</button>
+   <div class="f2">
+    <div><label for="nom">Tu nombre</label><input id="nom" autocomplete="name" placeholder="Ej: Sofía"></div>
+    <div><label for="loc">Localidad</label><input id="loc" autocomplete="address-level2" placeholder="Ej: Rosario, Santa Fe"></div>
+    <div><label for="tec">¿Con qué vas a estampar?</label><select id="tec"><option>DTF</option><option>Serigrafía</option><option>Vinilo</option><option>Bordado</option><option>Todavía no sé</option></select></div>
+    <div><label for="ent">Entrega</label><select id="ent"><option>Envío a mi localidad</option><option>Retiro en Lomas del Mirador</option></select></div>
+   </div>
+   <div class="sum">
+    <div><small id="sdet">Sin combo elegido</small><span class="t" id="stot">$0</span></div>
+    <div><a class="wa" id="wa" href="#" target="_blank" rel="noopener" aria-disabled="true">Reservar por WhatsApp</a></div>
+   </div>
+   <p class="hint" id="hint">Completá las remeras de tu combo para reservar.</p>
+  </div>
+ </div>
+</section>
+
+<section class="close band">
+ <div class="wrap">
+  <p class="q">"Estuvimos en tu lugar, sabemos lo que necesitás."</p>
+  <p>Válido hasta el 30 de noviembre o hasta agotar stock · WhatsApp 11 2849-2979</p>
+ </div>
+</section>
+
+<script>
+{
+const COMBOS=[
+ {q:6,n:'Combo Prueba',u:9150},
+ {q:10,n:'Combo Arranque',u:8330},
+ {q:20,n:'Combo Emprendedor',u:7690,b:'El más elegido'},
+ {q:50,n:'Combo Marca',u:7450,b:'Mejor precio'}];
+const UNI=[['Blanco','#fff'],['Negro','#111'],['Gris melange','#a9a9a9'],['Rojo','#c8202a'],['Azul marino','#1c2557'],['Naranja','#f0702a'],['Amarillo','#f2cc2e'],['Rosa BB','#f6c9d1'],['Bordó','#6a1a2a'],['Verde militar','#5f6448'],['Arena','#d8c4a6'],['Chocolate','#5a3825'],['Verde pistacho','#bfe3a0'],['Verde inglés','#1f4a33']];
+const MUJ=[['Blanco','#fff'],['Negro','#111'],['Gris melange','#a9a9a9'],['Rojo','#c8202a']];
+const TU=['S','M','L','XL','XXL'],TM=['S','M','L','XL'];
+const END=new Date('2026-11-30T23:59:59-03:00').getTime();
+const $=id=>document.getElementById(id);
+const ars=n=>'$'+n.toLocaleString('es-AR');
+let sel=null,rows=[];
+
+$('mq').innerHTML=Array(2).fill(['Últimos días del mes','Combos MODALISA','Precios de noviembre','Hasta el 30/11','Envíos a todo el país','Tu pedido en 24 hs'].map(t=>'<span>'+t+'</span>').join('<span>•</span>')+'<span>•</span>').join('');
+
+const base=COMBOS[0].u;
+$('cgrid').innerHTML=COMBOS.map((c,i)=>{const s=(base-c.u)*c.q;return `<button type="button" class="cb" data-i="${i}" aria-pressed="false">${c.b?`<span class="badge">${c.b}</span>`:''}<span class="nm">${c.n}</span><span class="qty">${c.q} <small>remeras</small></span><span class="unit">${ars(c.u)} <small>c/u</small></span><span class="tot">Total ${ars(c.u*c.q)}</span>${s>0?`<span class="save">Ahorrás ${ars(s)} vs. el combo de 6</span>`:'<span class="save" style="color:var(--mut)">Para probar la calidad</span>'}<span class="pick"><span>${'Elegir este combo'}</span></span></button>`}).join('');
+
+const totalQ=()=>rows.reduce((a,r)=>a+r.q,0);
+function pickCombo(i){sel=COMBOS[i];document.querySelectorAll('.cb').forEach(b=>{const on=+b.dataset.i===i;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);b.querySelector('.pick span').textContent=on?'Combo elegido':'Elegir este combo'});
+ if(!rows.length)rows.push({m:'Unisex',c:'Negro',t:'M',q:Math.min(sel.q,6)});
+ while(totalQ()>sel.q){const r=rows[rows.length-1];const ex=totalQ()-sel.q;if(r.q>ex){r.q-=ex}else rows.pop()}
+ render();$('armar').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})}
+document.querySelectorAll('.cb').forEach(b=>b.addEventListener('click',()=>pickCombo(+b.dataset.i)));
+
+function opts(list,v,col){return list.map(x=>{const n=col?x[0]:x;return `<option${n===v?' selected':''}>${n}</option>`}).join('')}
+function render(){
+ const max=sel?sel.q:0,tq=totalQ();
+ $('rows').innerHTML=rows.map((r,i)=>{const cl=r.m==='Mujer'?MUJ:UNI,tl=r.m==='Mujer'?TM:TU,hex=(cl.find(x=>x[0]===r.c)||cl[0])[1];
+  return `<div class="row" data-i="${i}"><select data-k="m" aria-label="Modelo">${opts(['Unisex','Mujer'],r.m)}</select><div class="c-color" style="display:flex;align-items:center;gap:8px"><span class="sw" style="background:${hex}"></span><select data-k="c" aria-label="Color">${opts(cl,r.c,1)}</select></div><select data-k="t" aria-label="Talle">${opts(tl,r.t)}</select><div class="step"><button type="button" data-a="-" aria-label="Restar">−</button><b>${r.q}</b><button type="button" data-a="+" aria-label="Sumar">+</button></div><button type="button" class="del" data-a="x" aria-label="Quitar">×</button></div>`}).join('');
+ $('empty').style.display=rows.length?'none':'block';
+ $('plbl').textContent=`${tq} de ${max} remeras`;
+ const falta=max-tq;$('pfalta').textContent=!sel?'':falta>0?`Faltan ${falta}`:'¡Combo completo!';
+ $('bari').style.width=(max?Math.min(100,tq/max*100):0)+'%';$('bar').classList.toggle('ok',sel&&falta===0);
+ $('add').disabled=!sel||falta<=0;$('add').style.opacity=$('add').disabled?.5:1;
+ $('bsub').textContent=sel?`${sel.n}: ${sel.q} remeras a ${ars(sel.u)} c/u. Repartilas como quieras.`:'Primero elegí un combo arriba.';
+ $('sdet').textContent=sel?`${sel.n} · ${sel.q} × ${ars(sel.u)}`:'Sin combo elegido';
+ $('stot').textContent=ars(sel?sel.q*sel.u:0);
+ const ok=sel&&falta===0;$('wa').setAttribute('aria-disabled',!ok);$('hint').textContent=ok?'Te respondemos y te pasamos los datos de pago para reservar.':sel?`Te faltan ${falta} remeras para completar el combo.`:'Elegí un combo para empezar.';
+ $('wa').href=ok?'https://wa.me/5491128492979?text='+encodeURIComponent(msg()):'#';
+}
+function msg(){const L=rows.map(r=>`• ${r.q} ${r.m} ${r.c} talle ${r.t}`).join('\n');
+ return `¡Hola MODALISA! Quiero reservar el ${sel.n} (${sel.q} remeras a ${ars(sel.u)} c/u, total ${ars(sel.q*sel.u)}).\n\n${L}\n\nNombre: ${$('nom').value||'-'}\nLocalidad: ${$('loc').value||'-'}\nTécnica: ${$('tec').value}\nEntrega: ${$('ent').value}`}
+
+$('rows').addEventListener('change',e=>{const k=e.target.dataset.k;if(!k)return;const r=rows[+e.target.closest('.row').dataset.i];r[k]=e.target.value;
+ if(k==='m'){const cl=r.m==='Mujer'?MUJ:UNI,tl=r.m==='Mujer'?TM:TU;if(!cl.some(x=>x[0]===r.c))r.c=cl[0][0];if(!tl.includes(r.t))r.t='M'}render()});
+$('rows').addEventListener('click',e=>{const a=e.target.dataset.a;if(!a)return;const i=+e.target.closest('.row').dataset.i,r=rows[i];
+ if(a==='+'&&totalQ()<sel.q)r.q++;if(a==='-'){r.q--;if(r.q<1)rows.splice(i,1)}if(a==='x')rows.splice(i,1);render()});
+$('add').addEventListener('click',()=>{if(!sel)return;const f=sel.q-totalQ();if(f<=0)return;const last=rows[rows.length-1];rows.push({m:last?last.m:'Unisex',c:'Blanco',t:'L',q:Math.min(f,5)});render()});
+['nom','loc','tec','ent'].forEach(id=>$(id).addEventListener('input',render));
+
+function tick(){let d=Math.max(0,END-Date.now());if(!d){$('end').style.display='block';$('clock').style.opacity=.4}
+ const p=n=>String(n).padStart(2,'0');$('cd').textContent=Math.floor(d/864e5);$('ch').textContent=p(Math.floor(d/36e5)%24);$('cm').textContent=p(Math.floor(d/6e4)%60);$('cs').textContent=p(Math.floor(d/1e3)%60)}
+tick();setInterval(tick,1000);render();
+}
+</script>
+</body>
+</html>
