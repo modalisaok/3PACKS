@@ -66,6 +66,14 @@ h2{font-size:clamp(28px,4vw,40px);line-height:1.08;margin:0 0 8px;font-weight:80
 .details img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
 .details figcaption{padding:10px 14px;font-size:14px}
 .mues{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(18px,3vw,30px);margin-top:34px}
+.mues summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:44px}
+.mues summary::-webkit-details-marker{display:none}
+.mues summary b{display:block;font-size:clamp(20px,2.6vw,26px);font-weight:800;line-height:1.15}
+.mues summary small{color:var(--mut);font-size:14px}
+.mues summary i{flex:none;width:40px;height:40px;border-radius:50%;background:var(--or);color:#15141E;font-style:normal;font-weight:700;font-size:24px;display:grid;place-items:center;transition:transform .2s}
+.mues[open] summary i{transform:rotate(45deg)}
+.mues summary:focus-visible{outline:3px solid var(--or);outline-offset:4px;border-radius:8px}
+.mbody{margin-top:20px}
 .mues h3{font-size:20px;margin:0 0 4px}.mues h3 span{font-weight:500;color:var(--mut);font-size:15px}
 .mg{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:10px;margin:14px 0 26px}
 .mg:last-child{margin-bottom:0}
@@ -144,13 +152,15 @@ label{font-size:14px;font-weight:600;display:block;margin-bottom:4px}
    <figure><img src="img/hombros.jpg" alt="Hombros y cuellos de remeras de colores"><figcaption>Terminaciones prolijas en cada cuello</figcaption></figure>
    <figure><img src="img/cuellos.jpg" alt="Tirillera a la vista en remeras de colores"><figcaption>Tirillera a la vista, terminación premium</figcaption></figure>
   </div>
-  <div class="mues" id="muestra">
-   <h2 style="font-size:clamp(24px,3vw,32px)">Muestra de colores</h2>
+  <details class="mues" id="muestra">
+   <summary><span><b>Muestra de colores</b><small>Tocá para ver los 14 colores unisex y 5 de mujer</small></span><i aria-hidden="true">+</i></summary>
+   <div class="mbody">
    <h3>Remeras unisex <span>· S al XXL</span></h3>
    <div class="mg" id="mgU"></div>
    <h3>Remeras de mujer <span>· S al XL</span></h3>
    <div class="mg" id="mgM"></div>
-  </div>
+   </div>
+  </details>
  </div>
 </section>
 
