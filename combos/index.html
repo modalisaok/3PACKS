@@ -16,10 +16,24 @@
 :root{color-scheme:light dark;--ink:#15141E;--ink2:#1f1d2b;--rust:#B85C3C;--or:#FF601E;--cream:light-dark(#F7F3EE,#121119);--card:light-dark(#fff,#1c1a26);--tx:light-dark(#15141E,#f2eee8);--mut:light-dark(#6b6670,#a7a2ad);--line:light-dark(#e6dfd6,#2c2a37)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:60px}
 body{margin:0;background:var(--cream);color:var(--tx);font:16px/1.55 Poppins,system-ui,sans-serif;overflow-x:clip}
 .band{padding:clamp(28px,4vw,64px) max(5vw,16px)}
 .wrap{max-width:1180px;margin:0 auto}
 button,input,select{font:inherit}
+.fire{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:center;gap:10px;padding:9px 12px;color:#fff;font-weight:700;font-size:15px;background:linear-gradient(90deg,#6e0b05,#c81e05,#ff5a00,#ffa200,#ff5a00,#c81e05,#6e0b05);background-size:300% 100%;animation:burn 7s linear infinite;box-shadow:0 4px 20px rgba(255,80,0,.45);text-shadow:0 1px 2px rgba(0,0,0,.45);transition:padding .25s}
+.fire.sc{padding:5px 12px}
+.fire.over{animation:none;background:#444}
+@keyframes burn{to{background-position:300% 0}}
+.fc{display:flex;align-items:baseline}
+.fc b{background:rgba(30,8,2,.72);border-radius:7px;padding:2px 7px;min-width:36px;text-align:center;font-variant-numeric:tabular-nums;font-size:19px;line-height:1.3;box-shadow:inset 0 -2px 0 rgba(255,140,0,.6)}
+.fc i{font-style:normal;font-size:12px;opacity:.9;margin:0 6px 0 3px}
+.fc i:last-child{margin-right:0}
+.flame{width:16px;height:22px;flex:none;transform-origin:50% 100%;animation:flick 1.2s ease-in-out infinite alternate;filter:drop-shadow(0 0 6px rgba(255,170,0,.8))}
+@keyframes flick{0%{transform:scale(1,1) rotate(-2deg)}50%{transform:scale(.94,1.06) rotate(2deg)}100%{transform:scale(1.04,.96) rotate(-1deg)}}
+.fl .short{display:none}
+@media(max-width:460px){.fl .long{display:none}.fl .short{display:inline}.fire{gap:7px;font-size:14px}.fc b{min-width:30px;font-size:17px;padding:2px 5px}.fc i{margin:0 4px 0 2px}.fire .flame:last-child{display:none}}
+@media(prefers-reduced-motion:reduce){.fire,.flame{animation:none}}
 .top{background:var(--ink);color:#fff;text-align:center;padding:14px 16px;font-weight:800;letter-spacing:.06em;font-size:20px}
 .strip{background:var(--or);color:#15141E;font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden}
 .strip div{display:inline-block;padding:8px 0;animation:mq 28s linear infinite}
@@ -31,6 +45,7 @@ button,input,select{font:inherit}
 .kick{display:inline-block;background:var(--rust);color:#fff;font-weight:600;font-size:14px;padding:6px 14px;border-radius:99px}
 h1{font-size:clamp(38px,6vw,64px);line-height:1.02;margin:16px 0 12px;font-weight:800;text-wrap:balance}
 h1 em{font-style:normal;color:var(--or)}
+.mix{margin:-2px 0 14px;font-size:clamp(19px,2.4vw,24px);font-weight:700;color:var(--or)}
 .lead{font-size:17px;color:#d8d4dc;max-width:34em;margin:0 0 22px}
 .clock{display:flex;gap:10px;flex-wrap:wrap}
 .clock div{background:#24222f;border:1px solid #34313f;border-radius:14px;padding:10px 0;width:clamp(68px,9vw,88px);text-align:center}
@@ -66,22 +81,22 @@ h2{font-size:clamp(28px,4vw,40px);line-height:1.08;margin:0 0 8px;font-weight:80
 .details figure{margin:0;background:var(--ink);border-radius:16px;overflow:hidden;color:#fff}
 .details img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
 .details figcaption{padding:10px 14px;font-size:14px}
-.mues{color:var(--tx);text-align:left;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(18px,3vw,30px);margin-top:34px}
+.mues{color:var(--tx);text-align:left;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 16px;margin-top:34px}
 .mues summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:44px}
 .mues summary::-webkit-details-marker{display:none}
-.mues summary b{display:block;font-size:clamp(20px,2.6vw,26px);font-weight:800;line-height:1.15}
+.mues summary b{display:block;font-size:18px;font-weight:800;line-height:1.15}
 .mues summary small{color:var(--mut);font-size:14px}
-.mues summary i{flex:none;width:40px;height:40px;border-radius:50%;background:var(--or);color:#15141E;font-style:normal;font-weight:700;font-size:24px;display:grid;place-items:center;transition:transform .2s}
+.mues summary i{flex:none;width:34px;height:34px;border-radius:50%;background:var(--or);color:#15141E;font-style:normal;font-weight:700;font-size:24px;display:grid;place-items:center;transition:transform .2s}
 .mues[open] summary i{transform:rotate(45deg)}
 .mues summary:focus-visible{outline:3px solid var(--or);outline-offset:4px;border-radius:8px}
-.mbody{margin-top:20px}
-.mues h3{font-size:20px;margin:0 0 4px}.mues h3 span{font-weight:500;color:var(--mut);font-size:15px}
-.mg{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:10px;margin:14px 0 26px}
+.mbody{margin-top:12px}
+.mues h3{font-size:14px;margin:0}.mues h3 span{font-weight:500;color:var(--mut);font-size:13px}
+.mg{display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:5px;margin:8px 0 14px}
 .mg:last-child{margin-bottom:0}
-.mg figure{margin:0;background:#cdb497;border-radius:12px;overflow:hidden}
-.mg img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block}
-.mg figcaption{background:var(--cream);text-align:center;font-size:14px;font-weight:500;padding:7px 4px}
-@media(max-width:420px){.mg{grid-template-columns:repeat(3,minmax(0,1fr))}.mg figcaption{font-size:13px}}
+.mg figure{margin:0;background:#cdb497;border-radius:8px;overflow:hidden}
+.mg img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center 30%;display:block}
+.mg figcaption{background:var(--cream);text-align:center;font-size:10px;line-height:1.2;font-weight:500;padding:4px 2px;min-height:2.6em;display:grid;place-items:center}
+
 .cblock{margin-top:38px}
 .chead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:12px}
 .chead h3{margin:0;font-size:clamp(20px,2.6vw,26px);font-weight:800}.chead h3 span{font-size:15px;font-weight:500;color:var(--mut)}
@@ -136,6 +151,7 @@ label{font-size:14px;font-weight:600;display:block;margin-bottom:4px}
 </style>
 </head>
 <body>
+<div class="fire" id="fire" role="timer" aria-live="off"><svg class="flame" viewBox="0 0 24 32" aria-hidden="true"><defs><linearGradient id="fg" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ffd23f"/><stop offset=".55" stop-color="#ff7a00"/><stop offset="1" stop-color="#e01e00"/></linearGradient></defs><path fill="url(#fg)" d="M12 1c1 6 8 9 8 18a8 8 0 0 1-16 0c0-4 2-7 4-9 0 3 1 5 3 6-1-5 0-10 1-15z"/><path fill="#fff3b0" d="M12 15c1 3 4 4 4 8a4 4 0 0 1-8 0c0-2 1-3 2-4 0 2 1 3 2 3-1-3-1-5 0-7z"/></svg><span class="fl"><span class="long">La promo termina en</span><span class="short">Termina en</span></span><div class="fc"><b id="cd">0</b><i>d</i><b id="ch">00</b><i>h</i><b id="cm">00</b><i>m</i><b id="cs">00</b><i>s</i></div><svg class="flame" viewBox="0 0 24 32" aria-hidden="true"><defs><linearGradient id="fg" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ffd23f"/><stop offset=".55" stop-color="#ff7a00"/><stop offset="1" stop-color="#e01e00"/></linearGradient></defs><path fill="url(#fg)" d="M12 1c1 6 8 9 8 18a8 8 0 0 1-16 0c0-4 2-7 4-9 0 3 1 5 3 6-1-5 0-10 1-15z"/><path fill="#fff3b0" d="M12 15c1 3 4 4 4 8a4 4 0 0 1-8 0c0-2 1-3 2-4 0 2 1 3 2 3-1-3-1-5 0-7z"/></svg></div>
 <div class="top">MODALISA</div>
 <div class="strip" aria-hidden="true"><div id="mq"></div></div>
 <div class="end" id="end">La promo de noviembre terminó. Escribinos igual y te pasamos los precios vigentes.</div>
@@ -144,17 +160,13 @@ label{font-size:14px;font-weight:600;display:block;margin-bottom:4px}
  <div class="wrap hgrid">
   <div>
    <span class="kick">Últimos días del mes</span>
-   <h1>Combos <em>MODALISA</em> a precio de noviembre</h1>
+   <h1>Combos <em>MODALISA</em> a precio fábrica</h1>
+   <p class="mix">Combiná tu pedido como quieras</p>
    <p class="lead">Remeras de algodón 24/1 premium extra suaves, listas para estampar. Elegí tu combo, armalo con tus colores y talles, y reservalo antes de que cierre el mes.</p>
-   <p class="cl-lbl">La promo termina el domingo 30 a las 23:59</p>
-   <div class="clock" id="clock" aria-live="polite">
-    <div><b id="cd">0</b><small>días</small></div><div><b id="ch">00</b><small>horas</small></div><div><b id="cm">00</b><small>min</small></div><div><b id="cs">00</b><small>seg</small></div>
-   </div>
    <div class="pills"><span>Envíos a todo el país</span><span>Tu pedido en 24 hs</span><span>Unisex S al XXL · Mujer S al XL</span></div>
   </div>
   <div class="photos">
    <img src="img/rack.jpg" alt="Perchero con remeras MODALISA de todos los colores"><img src="img/colores.jpg" alt="Remeras MODALISA de colores apiladas">
-   <div class="tag">14 colores unisex + 5 de mujer · <b>combinás como quieras</b></div>
   <details class="mues" style="grid-column:1/-1;margin-top:0" id="muestra">
    <summary><span><b>Colores disponibles</b><small>Tocá para ver los 14 colores unisex y 5 de mujer</small></span><i aria-hidden="true">+</i></summary>
    <div class="mbody">
@@ -284,9 +296,10 @@ document.querySelectorAll('.cblock').forEach(w=>{const c=w.querySelector('.car')
  w.querySelector('.prev').addEventListener('click',()=>go(-1));w.querySelector('.next').addEventListener('click',()=>go(1));
  c.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();go(1)}if(e.key==='ArrowLeft'){e.preventDefault();go(-1)}})});
 
-function tick(){let d=Math.max(0,END-Date.now());if(!d){$('end').style.display='block';$('clock').style.opacity=.4}
+function tick(){let d=Math.max(0,END-Date.now());if(!d){$('end').style.display='block';$('fire').classList.add('over')}
  const p=n=>String(n).padStart(2,'0');$('cd').textContent=Math.floor(d/864e5);$('ch').textContent=p(Math.floor(d/36e5)%24);$('cm').textContent=p(Math.floor(d/6e4)%60);$('cs').textContent=p(Math.floor(d/1e3)%60)}
-tick();setInterval(tick,1000);render();
+tick();setInterval(tick,1000);
+addEventListener('scroll',()=>$('fire').classList.toggle('sc',scrollY>40),{passive:true});render();
 }
 
 </script>
