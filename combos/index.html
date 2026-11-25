@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Combos MODALISA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,8 +40,8 @@ h1 em{font-style:normal;color:var(--or)}
 .pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
 .pills span{border:1px solid #4a4656;border-radius:99px;padding:6px 14px;font-size:14px}
 .photos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.photos img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:14px;display:block}
-.photos img:nth-child(2){transform:translateY(-22px)}
+.photos>img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:14px;display:block}
+.photos>img:nth-child(2){transform:translateY(-22px)}
 .photos .tag{grid-column:1/-1;background:#fff;color:var(--ink);border-radius:14px;padding:12px 16px;font-weight:700;text-align:center;font-size:15px}
 .tag b{color:var(--rust)}
 h2{font-size:clamp(28px,4vw,40px);line-height:1.08;margin:0 0 8px;font-weight:800;text-wrap:balance}
@@ -65,7 +66,7 @@ h2{font-size:clamp(28px,4vw,40px);line-height:1.08;margin:0 0 8px;font-weight:80
 .details figure{margin:0;background:var(--ink);border-radius:16px;overflow:hidden;color:#fff}
 .details img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
 .details figcaption{padding:10px 14px;font-size:14px}
-.mues{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(18px,3vw,30px);margin-top:34px}
+.mues{color:var(--tx);text-align:left;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(18px,3vw,30px);margin-top:34px}
 .mues summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:44px}
 .mues summary::-webkit-details-marker{display:none}
 .mues summary b{display:block;font-size:clamp(20px,2.6vw,26px);font-weight:800;line-height:1.15}
@@ -81,6 +82,22 @@ h2{font-size:clamp(28px,4vw,40px);line-height:1.08;margin:0 0 8px;font-weight:80
 .mg img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block}
 .mg figcaption{background:var(--cream);text-align:center;font-size:14px;font-weight:500;padding:7px 4px}
 @media(max-width:420px){.mg{grid-template-columns:repeat(3,minmax(0,1fr))}.mg figcaption{font-size:13px}}
+.cblock{margin-top:38px}
+.chead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:12px}
+.chead h3{margin:0;font-size:clamp(20px,2.6vw,26px);font-weight:800}.chead h3 span{font-size:15px;font-weight:500;color:var(--mut)}
+.navs{display:flex;gap:8px;flex:none}
+.nav{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--tx);font-size:24px;cursor:pointer;line-height:1}
+.car{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
+.car::-webkit-scrollbar{display:none}
+.car figure{margin:0;flex:0 0 min(72%,300px);scroll-snap-align:start;border-radius:16px;overflow:hidden;background:var(--ink);color:#fff}
+.car img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block}
+.car.wide figure{flex-basis:min(86%,380px)}.car.wide img{aspect-ratio:4/3}
+.car figcaption{padding:10px 14px;font-size:14px}
+.car:focus-visible{outline:3px solid var(--or);outline-offset:3px}
+.step input{width:56px;min-height:44px;border:0;border-radius:0;padding:0;text-align:center;background:transparent;font-weight:700;-moz-appearance:textfield}
+.step input::-webkit-outer-spin-button,.step input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.prog{flex-wrap:wrap;gap:4px 12px}#pfalta{color:var(--rust)}
+.cb .qty{font-size:40px}
 .build{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(18px,3vw,32px);max-width:820px;margin:0 auto}
 .prog{display:flex;justify-content:space-between;font-weight:600;font-size:15px;margin-bottom:8px}
 .bar{height:12px;background:var(--line);border-radius:99px;overflow:hidden}
@@ -138,22 +155,8 @@ label{font-size:14px;font-weight:600;display:block;margin-bottom:4px}
   <div class="photos">
    <img src="img/rack.jpg" alt="Perchero con remeras MODALISA de todos los colores"><img src="img/colores.jpg" alt="Remeras MODALISA de colores apiladas">
    <div class="tag">14 colores unisex + 5 de mujer · <b>combinás como quieras</b></div>
-  </div>
- </div>
-</section>
-
-<section class="band" id="combos">
- <div class="wrap">
-  <h2>Elegí tu combo</h2>
-  <p class="sub">Cuantas más llevás, menos pagás cada una. Podés surtir colores, talles y modelos dentro del mismo combo.</p>
-  <div class="combos" id="cgrid"></div>
-  <div class="details">
-   <figure><img src="img/rib.jpg" alt="Detalle del cuello en rib y tapacostura"><figcaption>Tapa costura de hombro a hombro con cuello en rib</figcaption></figure>
-   <figure><img src="img/hombros.jpg" alt="Hombros y cuellos de remeras de colores"><figcaption>Terminaciones prolijas en cada cuello</figcaption></figure>
-   <figure><img src="img/cuellos.jpg" alt="Tirillera a la vista en remeras de colores"><figcaption>Tirillera a la vista, terminación premium</figcaption></figure>
-  </div>
-  <details class="mues" id="muestra">
-   <summary><span><b>Muestra de colores</b><small>Tocá para ver los 14 colores unisex y 5 de mujer</small></span><i aria-hidden="true">+</i></summary>
+  <details class="mues" style="grid-column:1/-1;margin-top:0" id="muestra">
+   <summary><span><b>Colores disponibles</b><small>Tocá para ver los 14 colores unisex y 5 de mujer</small></span><i aria-hidden="true">+</i></summary>
    <div class="mbody">
    <h3>Remeras unisex <span>· S al XXL</span></h3>
    <div class="mg" id="mgU"></div>
@@ -161,18 +164,33 @@ label{font-size:14px;font-weight:600;display:block;margin-bottom:4px}
    <div class="mg" id="mgM"></div>
    </div>
   </details>
+  </div>
+ </div>
+</section>
+
+<section class="band" id="combos">
+ <div class="wrap">
+  <h2>Elegí tu combo</h2>
+  <p class="sub">Pedí la cantidad que quieras, de 6 a 200 remeras: el precio por unidad depende del total que lleves. Podés surtir colores, talles y modelos.</p>
+  <div class="combos" id="cgrid"></div>
+  <div class="cblock"><div class="chead"><h3>Remeras unisex <span>· S al XXL</span></h3><div class="navs"><button type="button" class="nav prev" aria-label="Anterior">‹</button><button type="button" class="nav next" aria-label="Siguiente">›</button></div></div>
+   <div class="car " tabindex="0"><figure><img src="img/unisex-1.jpg" alt="Remera unisex MODALISA puesta" loading="lazy"></figure><figure><img src="img/unisex-2.jpg" alt="Remera unisex MODALISA puesta" loading="lazy"></figure><figure><img src="img/unisex-3.jpg" alt="Remera unisex MODALISA puesta" loading="lazy"></figure><figure><img src="img/unisex-4.jpg" alt="Remera unisex MODALISA puesta" loading="lazy"></figure><figure><img src="img/unisex-5.jpg" alt="Remera unisex MODALISA puesta" loading="lazy"></figure></div></div>
+  <div class="cblock"><div class="chead"><h3>Remeras de mujer <span>· S al XL</span></h3><div class="navs"><button type="button" class="nav prev" aria-label="Anterior">‹</button><button type="button" class="nav next" aria-label="Siguiente">›</button></div></div>
+   <div class="car " tabindex="0"><figure><img src="img/mujer-1.jpg" alt="Remera de mujer MODALISA puesta" loading="lazy"></figure><figure><img src="img/mujer-2.jpg" alt="Remera de mujer MODALISA puesta" loading="lazy"></figure><figure><img src="img/mujer-3.jpg" alt="Remera de mujer MODALISA puesta" loading="lazy"></figure></div></div>
+  <div class="cblock"><div class="chead"><h3>Calidad en cada detalle <span></span></h3><div class="navs"><button type="button" class="nav prev" aria-label="Anterior">‹</button><button type="button" class="nav next" aria-label="Siguiente">›</button></div></div>
+   <div class="car wide" tabindex="0"><figure><img src="img/rib.jpg" alt="Cuello en rib y tapacostura" loading="lazy"><figcaption>Tapa costura de hombro a hombro con cuello en rib</figcaption></figure><figure><img src="img/hombros.jpg" alt="Hombros y cuellos" loading="lazy"><figcaption>Terminaciones prolijas en cada cuello</figcaption></figure><figure><img src="img/cuellos.jpg" alt="Tirillera a la vista" loading="lazy"><figcaption>Tirillera a la vista, terminación premium</figcaption></figure></div></div>
  </div>
 </section>
 
 <section class="band" id="armar" style="padding-top:0">
  <div class="wrap">
   <h2 style="text-align:center">Armá tu pedido</h2>
-  <p class="sub" style="text-align:center" id="bsub">Primero elegí un combo arriba.</p>
+  <p class="sub" style="text-align:center" id="bsub">Sumá colores, talles y cantidades.</p>
   <div class="build">
    <div class="prog"><span id="plbl">0 de 0 remeras</span><span id="pfalta"></span></div>
    <div class="bar" id="bar"><i id="bari"></i></div>
    <div id="rows"></div>
-   <p class="empty" id="empty">Sumá colores y talles hasta completar tu combo.</p>
+   <p class="empty" id="empty">Elegí un combo arriba o tocá "Agregar color y talle".</p>
    <button class="add" id="add" type="button">+ Agregar color y talle</button>
    <div class="f2">
     <div><label for="nom">Tu nombre</label><input id="nom" autocomplete="name" placeholder="Ej: Sofía"></div>
@@ -198,64 +216,79 @@ label{font-size:14px;font-weight:600;display:block;margin-bottom:4px}
 
 <script>
 {
-const COMBOS=[
- {q:6,n:'Combo Prueba',u:9150},
- {q:10,n:'Combo Arranque',u:8330},
- {q:20,n:'Combo Emprendedor',u:7690,b:'El más elegido'},
- {q:50,n:'Combo Marca',u:7450,b:'Mejor precio'}];
-const UNI=[['Blanco','#fff'],['Negro','#111'],['Gris melange','#a9a9a9'],['Rojo','#c8202a'],['Azul marino','#1c2557'],['Naranja','#f0702a'],['Amarillo','#f2cc2e'],['Rosa BB','#f6c9d1'],['Bordó','#6a1a2a'],['Verde militar','#5f6448'],['Arena','#d8c4a6'],['Chocolate','#5a3825'],['Verde pistacho','#bfe3a0'],['Verde inglés','#1f4a33']];
-const MUJ=[['Blanco','#fff'],['Negro','#111'],['Gris melange','#a9a9a9'],['Rojo','#c8202a'],['Azul marino','#1c2557']];
+const TIERS=[
+ {min:6,max:9,n:'Combo Prueba',u:9150},
+ {min:10,max:19,n:'Combo Arranque',u:8330},
+ {min:20,max:49,n:'Combo Emprendedor',u:7690,b:'El más elegido'},
+ {min:50,max:200,n:'Combo Marca',u:7450,b:'Mejor precio'}];
+const MINQ=6,MAXQ=200;
+const UNI=[['Blanco'],['Negro'],['Gris melange'],['Rojo'],['Azul marino'],['Naranja'],['Amarillo'],['Rosa BB'],['Bordó'],['Verde militar'],['Arena'],['Chocolate'],['Verde pistacho'],['Verde inglés']];
+const MUJ=[['Blanco'],['Negro'],['Gris melange'],['Rojo'],['Azul marino']];
 const TU=['S','M','L','XL','XXL'],TM=['S','M','L','XL'];
 const END=new Date('2026-11-30T23:59:59-03:00').getTime();
 const $=id=>document.getElementById(id);
 const ars=n=>'$'+n.toLocaleString('es-AR');
-let sel=null,rows=[];
+const slug=n=>n.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z]+/g,'-').replace(/^-|-$/g,'');
+const tile=(p,l)=>l.map(c=>`<figure><img src="img/${p}-${slug(c[0])}.jpg" alt="Remera ${c[0]}" loading="lazy"><figcaption>${c[0]}</figcaption></figure>`).join('');
+$('mgU').innerHTML=tile('c',UNI);$('mgM').innerHTML=tile('w',MUJ);
+let rows=[];
 
 $('mq').innerHTML=Array(2).fill(['Últimos días del mes','Combos MODALISA','Precios de noviembre','Hasta el 30/11','Envíos a todo el país','Tu pedido en 24 hs'].map(t=>'<span>'+t+'</span>').join('<span>•</span>')+'<span>•</span>').join('');
 
-const base=COMBOS[0].u;
-$('cgrid').innerHTML=COMBOS.map((c,i)=>{const s=(base-c.u)*c.q;return `<button type="button" class="cb" data-i="${i}" aria-pressed="false">${c.b?`<span class="badge">${c.b}</span>`:''}<span class="nm">${c.n}</span><span class="qty">${c.q} <small>remeras</small></span><span class="unit">${ars(c.u)} <small>c/u</small></span><span class="tot">Total ${ars(c.u*c.q)}</span>${s>0?`<span class="save">Ahorrás ${ars(s)} vs. el combo de 6</span>`:'<span class="save" style="color:var(--mut)">Para probar la calidad</span>'}<span class="pick"><span>${'Elegir este combo'}</span></span></button>`}).join('');
+const base=TIERS[0].u;
+$('cgrid').innerHTML=TIERS.map((c,i)=>`<button type="button" class="cb" data-i="${i}" aria-pressed="false">${c.b?`<span class="badge">${c.b}</span>`:''}<span class="nm">${c.n}</span><span class="qty">${c.min} a ${c.max} <small>remeras</small></span><span class="unit">${ars(c.u)} <small>c/u</small></span><span class="tot">Ej: ${c.min} remeras = ${ars(c.min*c.u)}</span>${c.u<base?`<span class="save">Ahorrás ${ars(base-c.u)} por remera</span>`:'<span class="save" style="color:var(--mut)">Para probar la calidad</span>'}<span class="pick"><span>Elegir este combo</span></span></button>`).join('');
 
-const slug=n=>n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z]+/g,'-').replace(/^-|-$/g,'');
-const tile=(p,l)=>l.map(c=>`<figure><img src="img/${p}-${slug(c[0])}.jpg" alt="Remera ${c[0]}" loading="lazy"><figcaption>${c[0]}</figcaption></figure>`).join('');
-$('mgU').innerHTML=tile('c',UNI);$('mgM').innerHTML=tile('w',MUJ);
 const totalQ=()=>rows.reduce((a,r)=>a+r.q,0);
-function pickCombo(i){sel=COMBOS[i];document.querySelectorAll('.cb').forEach(b=>{const on=+b.dataset.i===i;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);b.querySelector('.pick span').textContent=on?'Combo elegido':'Elegir este combo'});
- if(!rows.length)rows.push({m:'Unisex',c:'Negro',t:'M',q:Math.min(sel.q,6)});
- while(totalQ()>sel.q){const r=rows[rows.length-1];const ex=totalQ()-sel.q;if(r.q>ex){r.q-=ex}else rows.pop()}
- render();$('armar').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})}
-document.querySelectorAll('.cb').forEach(b=>b.addEventListener('click',()=>pickCombo(+b.dataset.i)));
+const tierOf=q=>[...TIERS].reverse().find(t=>q>=t.min)||null;
+function setTotal(target){let q=totalQ();
+ if(!rows.length){rows.push({m:'Unisex',c:'Negro',t:'M',q:target});return}
+ if(q<target){rows[rows.length-1].q+=target-q;return}
+ while(q>target&&rows.length){const r=rows[rows.length-1],ex=q-target;if(r.q>ex){r.q-=ex;q=target}else{q-=r.q;rows.pop()}}}
+function pick(i){const t=TIERS[i],q=totalQ();if(q<t.min||q>t.max)setTotal(t.min);render();
+ $('armar').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})}
+document.querySelectorAll('.cb').forEach(b=>b.addEventListener('click',()=>pick(+b.dataset.i)));
 
 function opts(list,v,col){return list.map(x=>{const n=col?x[0]:x;return `<option${n===v?' selected':''}>${n}</option>`}).join('')}
 function render(){
- const max=sel?sel.q:0,tq=totalQ();
- $('rows').innerHTML=rows.map((r,i)=>{const cl=r.m==='Mujer'?MUJ:UNI,tl=r.m==='Mujer'?TM:TU,hex=(cl.find(x=>x[0]===r.c)||cl[0])[1];
-  return `<div class="row" data-i="${i}"><select data-k="m" aria-label="Modelo">${opts(['Unisex','Mujer'],r.m)}</select><div class="c-color"><img class="th" src="img/${r.m==='Mujer'?'w':'c'}-${slug(r.c)}.jpg" alt="Remera ${r.c}"><select data-k="c" aria-label="Color">${opts(cl,r.c,1)}</select></div><select data-k="t" aria-label="Talle">${opts(tl,r.t)}</select><div class="step"><button type="button" data-a="-" aria-label="Restar">−</button><b>${r.q}</b><button type="button" data-a="+" aria-label="Sumar">+</button></div><button type="button" class="del" data-a="x" aria-label="Quitar">×</button></div>`}).join('');
+ const tq=totalQ(),t=tierOf(tq),next=TIERS.find(x=>x.min>tq);
+ document.querySelectorAll('.cb').forEach(b=>{const on=t===TIERS[+b.dataset.i];b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);b.querySelector('.pick span').textContent=on?'Tu combo':'Elegir este combo'});
+ $('rows').innerHTML=rows.map((r,i)=>{const cl=r.m==='Mujer'?MUJ:UNI,tl=r.m==='Mujer'?TM:TU;
+  return `<div class="row" data-i="${i}"><select data-k="m" aria-label="Modelo">${opts(['Unisex','Mujer'],r.m)}</select><div class="c-color"><img class="th" src="img/${r.m==='Mujer'?'w':'c'}-${slug(r.c)}.jpg" alt="Remera ${r.c}"><select data-k="c" aria-label="Color">${opts(cl,r.c,1)}</select></div><select data-k="t" aria-label="Talle">${opts(tl,r.t)}</select><div class="step"><button type="button" data-a="-" aria-label="Restar">−</button><input type="number" inputmode="numeric" min="1" max="${MAXQ}" value="${r.q}" data-k="q" aria-label="Cantidad"><button type="button" data-a="+" aria-label="Sumar">+</button></div><button type="button" class="del" data-a="x" aria-label="Quitar">×</button></div>`}).join('');
  $('empty').style.display=rows.length?'none':'block';
- $('plbl').textContent=`${tq} de ${max} remeras`;
- const falta=max-tq;$('pfalta').textContent=!sel?'':falta>0?`Faltan ${falta}`:'¡Combo completo!';
- $('bari').style.width=(max?Math.min(100,tq/max*100):0)+'%';$('bar').classList.toggle('ok',sel&&falta===0);
- $('add').disabled=!sel||falta<=0;$('add').style.opacity=$('add').disabled?.5:1;
- $('bsub').textContent=sel?`${sel.n}: ${sel.q} remeras a ${ars(sel.u)} c/u. Repartilas como quieras.`:'Primero elegí un combo arriba.';
- $('sdet').textContent=sel?`${sel.n} · ${sel.q} × ${ars(sel.u)}`:'Sin combo elegido';
- $('stot').textContent=ars(sel?sel.q*sel.u:0);
- const ok=sel&&falta===0;$('wa').setAttribute('aria-disabled',!ok);$('hint').textContent=ok?'Te respondemos y te pasamos los datos de pago para reservar.':sel?`Te faltan ${falta} remeras para completar el combo.`:'Elegí un combo para empezar.';
- $('wa').href=ok?'https://wa.me/5491128492979?text='+encodeURIComponent(msg()):'#';
+ $('plbl').textContent=t?`${tq} remeras · ${t.n} a ${ars(t.u)} c/u`:`${tq} remeras`;
+ $('pfalta').textContent=tq<MINQ?`Mínimo ${MINQ}: te faltan ${MINQ-tq}`:tq>=MAXQ?`Máximo ${MAXQ} por pedido`:next?`Sumá ${next.min-tq} más y pagás ${ars(next.u)} c/u`:'¡Tenés el mejor precio!';
+ const pct=!t?tq/MINQ:next?(tq-t.min)/(next.min-t.min):1;
+ $('bari').style.width=Math.min(100,pct*100)+'%';$('bar').classList.toggle('ok',!!t&&!next);
+ $('add').disabled=tq>=MAXQ;$('add').style.opacity=$('add').disabled?.5:1;
+ $('bsub').textContent='Sumá colores, talles y cantidades. El precio se ajusta solo según el total.';
+ $('sdet').textContent=t?`${tq} × ${ars(t.u)} · ${t.n}`:`Mínimo ${MINQ} remeras`;
+ $('stot').textContent=ars(t?tq*t.u:0);
+ const ok=!!t;$('wa').setAttribute('aria-disabled',!ok);
+ $('hint').textContent=ok?'Te respondemos y te pasamos los datos de pago para reservar.':`Sumá al menos ${MINQ} remeras para reservar.`;
+ $('wa').href=ok?'https://wa.me/5491128492979?text='+encodeURIComponent(msg(tq,t)):'#';
 }
-function msg(){const L=rows.map(r=>`• ${r.q} ${r.m} ${r.c} talle ${r.t}`).join('\n');
- return `¡Hola MODALISA! Quiero reservar el ${sel.n} (${sel.q} remeras a ${ars(sel.u)} c/u, total ${ars(sel.q*sel.u)}).\n\n${L}\n\nNombre: ${$('nom').value||'-'}\nLocalidad: ${$('loc').value||'-'}\nTécnica: ${$('tec').value}\nEntrega: ${$('ent').value}`}
+function msg(tq,t){const L=rows.map(r=>`• ${r.q} ${r.m} ${r.c} talle ${r.t}`).join('\n');
+ return `¡Hola MODALISA! Quiero reservar ${tq} remeras con el precio del ${t.n} (${ars(t.u)} c/u, total ${ars(tq*t.u)}).\n\n${L}\n\nNombre: ${$('nom').value||'-'}\nLocalidad: ${$('loc').value||'-'}\nTécnica: ${$('tec').value}\nEntrega: ${$('ent').value}`}
 
-$('rows').addEventListener('change',e=>{const k=e.target.dataset.k;if(!k)return;const r=rows[+e.target.closest('.row').dataset.i];r[k]=e.target.value;
- if(k==='m'){const cl=r.m==='Mujer'?MUJ:UNI,tl=r.m==='Mujer'?TM:TU;if(!cl.some(x=>x[0]===r.c))r.c=cl[0][0];if(!tl.includes(r.t))r.t='M'}render()});
+$('rows').addEventListener('change',e=>{const k=e.target.dataset.k;if(!k)return;const r=rows[+e.target.closest('.row').dataset.i];
+ if(k==='q'){const others=totalQ()-r.q;let v=parseInt(e.target.value,10);if(!(v>=1))v=1;r.q=Math.min(v,MAXQ-others)}
+ else{r[k]=e.target.value;if(k==='m'){const cl=r.m==='Mujer'?MUJ:UNI,tl=r.m==='Mujer'?TM:TU;if(!cl.some(x=>x[0]===r.c))r.c=cl[0][0];if(!tl.includes(r.t))r.t='M'}}
+ render()});
 $('rows').addEventListener('click',e=>{const a=e.target.dataset.a;if(!a)return;const i=+e.target.closest('.row').dataset.i,r=rows[i];
- if(a==='+'&&totalQ()<sel.q)r.q++;if(a==='-'){r.q--;if(r.q<1)rows.splice(i,1)}if(a==='x')rows.splice(i,1);render()});
-$('add').addEventListener('click',()=>{if(!sel)return;const f=sel.q-totalQ();if(f<=0)return;const last=rows[rows.length-1];rows.push({m:last?last.m:'Unisex',c:'Blanco',t:'L',q:Math.min(f,5)});render()});
+ if(a==='+'&&totalQ()<MAXQ)r.q++;if(a==='-'){r.q--;if(r.q<1)rows.splice(i,1)}if(a==='x')rows.splice(i,1);render()});
+$('add').addEventListener('click',()=>{const tq=totalQ();if(tq>=MAXQ)return;const last=rows[rows.length-1];
+ rows.push({m:last?last.m:'Unisex',c:'Blanco',t:'L',q:tq<MINQ?MINQ-tq:Math.min(5,MAXQ-tq)});render()});
 ['nom','loc','tec','ent'].forEach(id=>$(id).addEventListener('input',render));
+
+document.querySelectorAll('.cblock').forEach(w=>{const c=w.querySelector('.car'),go=d=>c.scrollBy({left:d*c.clientWidth*.8,behavior:'smooth'});
+ w.querySelector('.prev').addEventListener('click',()=>go(-1));w.querySelector('.next').addEventListener('click',()=>go(1));
+ c.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();go(1)}if(e.key==='ArrowLeft'){e.preventDefault();go(-1)}})});
 
 function tick(){let d=Math.max(0,END-Date.now());if(!d){$('end').style.display='block';$('clock').style.opacity=.4}
  const p=n=>String(n).padStart(2,'0');$('cd').textContent=Math.floor(d/864e5);$('ch').textContent=p(Math.floor(d/36e5)%24);$('cm').textContent=p(Math.floor(d/6e4)%60);$('cs').textContent=p(Math.floor(d/1e3)%60)}
 tick();setInterval(tick,1000);render();
 }
+
 </script>
 </body>
 </html>
